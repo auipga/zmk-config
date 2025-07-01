@@ -183,7 +183,7 @@ LAR_1         LAR_2         LAR_3                       L_ENC         LT_3      
                         bindings = <
 ________      ________      &kp u_BACK    &kp u_FWD     &kp F5        &kp F12                                                                       XXX               &kp N7      &kp N8      &kp N9        &kp DE_COLON  &kp KP_DIVIDE
 ________      &kp LGUI      &kp LALT      &kp LCTRL     &kp LSHIFT    U_DEVTOG                                                                      &kp KP_PLUS       &kp N4      &kp N5      &kp N6        &kp DE_DOT    &kp KP_MINUS
-________      ________      &kp RALT      &kp DE_DOT    &kp DE_COMMA  &kp LS(LC(C)) &kp K_CALC                                        XXX           &kp KP_MULTIPLY   &kp N1      &kp N2      &kp N3        RAR_0         &kp DE_COMMA
+________      ________      &kp RALT      &kp DE_DOT    &kp DE_COMMA  &kp LS(LC(C)) &kp K_CALC                                        XXX           &kp KP_MULTIPLY   &kp N1      &kp N2      &kp N3        &kp DE_EURO   &kp DE_COMMA
 ________      ________      ________                    L_ENC         &kp LEFT      &kp RIGHT     XXX                   &kp BSPC      &kp N0        &kp DEL           R_ENC                   RAR_1         RAR_2         RAR_3
                         >;
 
