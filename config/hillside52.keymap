@@ -1,0 +1,272 @@
+/*
+ * Copyright (c) 2021-2022 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/outputs.h>
+#include "outer-keys.h"
+#include "combos.h"
+#include "keymap-german-rev3.h"
+#include "keymap-linux.h"
+#include "keymap-phpstorm.h"
+
+#define DK_HRM_L 0 // C_VOL_DN  C_VOL_UP  ✔   ⬅         ➡         ✔
+#define DVORAK_L 1 // C_VOL_DN  C_VOL_UP  ✔   ⬅         ➡         ✔
+#define NUM_L    2 // ⬅ prv-tab ➡ nxt-tab ✖   LS(TAB)   TAB       ✔
+#define NAV_L    3 // ⬅ back    ➡ fwd     ✖   ⬆         ⬇         ✔
+#define MED_L    4 // LEFT      RIGHT     ✔                       ✖
+#define SYM_L    5 // u_TAB_PRV u_TAB_NXT ✖                       ✖
+#define FUN_L    6 // C_BRI_DN  C_BRI_UP  ✔  u_BRI_DN  u_BRI_UP   ✖
+#define PHP_L    7 // p_LOCPRV  p_LOCNXT  ✖  u_UNDO    u_REDO     ✖
+#define P_CMP_L  8 //                     ✔  p_DIFPRV  p_DIFNXT   ✔
+#define P_FIND_L 9 //                     ✔  p_PREV    p_NEXT     ✔
+#define P_GIT_L 10 //                     ✖                       ✖
+#define P_SEL_L 11 //                     ✔  p_SELOC_  p_SELOCC   ✔
+
+// Home row mods macro
+#define HRML(k1,k2,k3,k4) &sx LGUI  k1   &hm LALT  k2   &hm LCTRL k3   &hm LSHFT k4
+#define HRMR(k1,k2,k3,k4) &hm RSHFT k1   &hm RCTRL k2   &hm LALT  k3   &sx RGUI  k4
+&lt {
+    tapping-term-ms = <200>;
+    quick_tap_ms = <300>;
+    flavor = "tap-preferred";
+};
+
+/ {
+    behaviors {
+        hm: homerow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            #label = "HOMEROW_MODS";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick_tap_ms = <200>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&kp>;
+        };
+        sm: slow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            #label = "SLOW_HOMEROW_MODS";
+            #binding-cells = <2>;
+            tapping-term-ms = <1000>;
+            quick_tap_ms = <300>;
+            flavor = "hold-preferred";
+            bindings = <&kp>, <&kp>;
+        };
+        sx: slow_mods2 {
+            compatible = "zmk,behavior-hold-tap";
+            #label = "SLOW_HOMEROW_MODS2";
+            #binding-cells = <2>;
+            tapping-term-ms = <1000>;
+            quick_tap_ms = <300>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&kp>;
+        };
+        capsing: tap_dance_caps_word_caps_lock {
+            compatible = "zmk,behavior-tap-dance";
+            #label = "TAP_DANCE_CAPS";
+            #binding-cells = <0>;
+            tapping-term-ms = <300>;
+            bindings = <&caps_word>, <&kp CAPS>;
+        };
+    };
+
+    macros {
+        // '->' object operator
+        ZMK_MACRO(php_oo,    bindings = <&kp DE_MINUS  &kp DE_GT     >; )
+        // ' => ' double arrow operator
+        ZMK_MACRO(php_dao,   bindings = <&kp SPACE     &kp DE_EQUAL  &kp DE_GT     &kp SPACE     >; )
+        // Scratch (PhpStorm)
+        ZMK_MACRO(php_sn,    bindings = <&kp LA(C)     &kp LA(A)     >; ) // New Scratch
+        ZMK_MACRO(php_sd,    bindings = <&kp LA(C)     &kp LA(C)     >; ) // Open Default Scratch
+        ZMK_MACRO(php_sl,    bindings = <&kp LA(C)     &kp LA(S)     >; ) // Open Scratch List
+
+        // other stuff
+        ZMK_MACRO(a_ret,     bindings = <&kp A         &kp RET       >; )
+    };
+
+        combos {
+                compatible = "zmk,combos";
+
+                // key numbers
+                //       0   1   2   3   4   5                      6   7   8   9  10  11
+                //      12 [13][14][15][16] 17                     18 [19][20][21][22] 23
+                //      24  25 [26] 27  28  29  30             31  32  33  34 [35] 36  37
+                //      38  39  40     (41) 42  43  44     45  46  47 (48)     49  50  51
+
+                //<editor-fold desc="hrm/AltGr umlauts">
+                // Umlauts with AltGr on right half
+                COMBO(13, 35, DE_AE)
+                COMBO(14, 35, DE_OE)
+                COMBO(16, 35, DE_UE)
+
+                // ß with AltGr
+                COMBO(22, 26, DE_SS)
+                COMBO(22, 35, DE_SS)
+                //</editor-fold>
+
+                // for coding:
+                // row 0
+                COMBO( 2,  3, DE_GRAVE) /* `            */ COMBO( 8,  9, DE_RBRC ) // }
+                COMBO( 3,  4, DE_DLLR ) /* $            */ COMBO( 7,  8, DE_LBRC ) // {
+
+                // row 1
+                //  is fully engaged with home row mods !!
+
+                // row 2
+                COMBC(27, 28, &php_oo ) /* `->`         */ COMBO(33, 34, DE_EQUAL) // =
+                COMBC(28, 29, &php_dao) // ` => ` inner */ COMBC(32, 33, ___     ) //
+
+                // Other
+                COMBC( 16, 19, &capsing) // both hrm shifts, 1st caps_word, 2nd CAPS
+                COMBC( 17, 18, &tog DVORAK_L)
+        };
+
+        keymap {
+                compatible = "zmk,keymap";
+
+                dvorak_hrm_layer {
+                        bindings = <
+LOP_1         &kp  DE_SQT   &kp  DE_COMMA &kp  DE_DOT   &kp  P        &kp  DE_Y                                                                     &kp  F        &kp  G        &kp  C        &kp  R        &kp  L        &kp KP_SLASH
+LOP_2         HRML(A,       O,            E,            U       )     &kp  I                                                                        &kp  D        HRMR(H,       T,            N,            S       )     &kp DE_MINUS
+LOP_3         &kp  DE_SEMI  &kp Q         &kp  J        &kp  K        &kp  X        LT_2_1                                            RT_2_1        &kp  B        &kp  M        &kp  W        &kp V         &kp DE_Z      ROP_3
+LAR_1         LAR_2         LAR_3                       L_ENC         LT_3          LT_2          LT_1                  RT_1          RT_2          RT_3          R_ENC                       RAR_1         RAR_2         RAR_3
+                        >;
+
+                        sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp LEFT RIGHT>;
+                };
+
+                dvorak_layer {
+                        bindings = <
+LOP_1         &kp  DE_SQT   &kp  DE_COMMA &kp  DE_DOT   &kp  P        &kp  DE_Y                                                                     &kp  F        &kp  G        &kp  C        &kp  R        &kp  L        &kp KP_SLASH
+LOP_2         &kp  A        &kp  O        &kp  E        &kp  U        &kp  I                                                                        &kp  D        &kp  H        &kp  T        &kp  N        &kp  S        &kp DE_MINUS
+LOP_3         &kp  DE_SEMI  &kp  Q        &kp  J        &kp  K        &kp  X        LT_2_1                                            RT_2_1        &kp  B        &kp  M        &kp  W        &kp  V        &kp DE_Z      ROP_3
+LAR_1         LAR_2         LAR_3                       L_ENC         LT_3          LT_2          LT_1                  RT_1          RT_2          RT_3          R_ENC                       RAR_1         RAR_2         RAR_3
+                        >;
+
+                        sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp LEFT RIGHT>;
+                };
+
+                numbers_layer {
+                    // __⬅➡FF      _789./     ⬅/➡: History, F: F5, F12
+                    // _GACS_      +456,-     GACS modifier
+                    // __a.,_C    _*123⬆:     a: RALT, C: Calc
+                    // ___ ð__x  B0Dð ⬅⬇➡     _: frei, x: frei; B: BSPC, D: DEL
+                        bindings = <
+________      ________      &kp u_BACK    &kp u_FWD     &kp F5        &kp F12                                                                       XXX               &kp N7      &kp N8      &kp N9        &kp DE_COLON  &kp KP_DIVIDE
+________      &kp LGUI      &kp LALT      &kp LCTRL     &kp LSHIFT    U_DEVTOG                                                                      &kp KP_PLUS       &kp N4      &kp N5      &kp N6        &kp DE_DOT    &kp KP_MINUS
+________      ________      &kp RALT      &kp DE_DOT    &kp DE_COMMA  &kp LS(LC(C)) &kp K_CALC                                        XXX           &kp KP_MULTIPLY   &kp N1      &kp N2      &kp N3        RAR_0         &kp DE_COMMA
+________      ________      ________                    L_ENC         &kp LEFT      &kp RIGHT     XXX                   &kp BSPC      &kp N0        &kp DEL           R_ENC                   RAR_1         RAR_2         RAR_3
+                        >;
+
+                        sensor-bindings = <&inc_dec_kp u_TAB_PRV u_TAB_NXT &inc_dec_kp LS(TAB) TAB>;
+                };
+
+                nav_layer {
+                        bindings = <
+&kp ESC    &kp LA(ESC)     U_TAB_PRV       U_TAB_NXT        &kp F5             &kp F2                                                               &kp PG_UP     &kp HOME      &kp UP        &kp END       &kp PG_DN     &kp BSPC
+U_CONSOL   &sm LGUI LC(X)  &sm LALT LC(C)  &sm LCTRL LC(V)  &sm LSHIFT u_UNDO  P_COMENT                                                             &kp INSERT    &kp LEFT      &kp DOWN      &kp RIGHT     XXX           XXX
+U_SYSMON   &kp LC(A)       &kp LS(LC(C))   &kp LS(LC(V))    &kp u_REDO         P_CMNT_B       &kp LG(L)                               &bootloader   U_PROMPT      &kp LS(TAB)   &kp K_APP     &kp TAB       RAR_0         &kp RET
+XXX        XXX             XXX                              L_ENC              &kp LS(PSCRN)  ___         &bootloader   &kp RTK_1     &kp RTK_2     &kp RTK_3     R_ENC                       RAR_1         RAR_2         RAR_3
+                        >;
+
+                        sensor-bindings = <&inc_dec_kp u_BACK u_FWD &inc_dec_kp UP DOWN>;
+                };
+
+                media_layer {
+                        bindings = <
+YT_SLOWER     YT_FASTER     XXX           XXX     &bt BT_SEL 0  &out OUT_USB                                                                        XXX   XXX   XXX   XXX   XXX   XXX
+&kp K_PREV    &kp K_NEXT    XXX           XXX     &bt BT_SEL 1  &out OUT_BLE                                                                        XXX   XXX   XXX   XXX   XXX   XXX
+U_DARK        U_ZOOM        XXX           XXX     &bt BT_SEL 2  &bt BT_CLR    &bootloader                                             &bootloader   XXX   XXX   XXX   XXX   RAR_0 XXX
+&kp LEFT      ___           &kp RIGHT             L_ENC         XXX           &sys_reset    XXX                         XXX           &sys_reset    XXX   R_ENC       RAR_1 RAR_2 RAR_3
+                        >;
+
+                        sensor-bindings = <&inc_dec_kp LEFT RIGHT &inc_dec_kp P_ P_>;
+                };
+
+                symbols_layer {
+                        bindings = <
+                        // ~@*&\   ^<>/%      combos:     `  $      |         {  }
+                        // €:-+    !()"?
+                        // ;10|    #[]'_      combos:  ra ra -> =>  |  ` = $` =  ra ra
+LOP_1         &kp DE_TILDE  &kp DE_AT     &kp DE_STAR   &kp DE_AMPS   &kp DE_BSLH                                                                   &kp DE_CARET  &kp DE_LT     &kp DE_GT     &kp DE_FSLH   &kp DE_PRCNT  &kp BSPC
+LOP_2         &kp DE_EURO   &kp DE_COLON  &kp DE_MINUS  &kp DE_PLUS   XXX                                                                           &kp DE_EXCL   &kp DE_LPAR   &kp DE_RPAR   &kp DE_DQT    &kp DE_QMARK  XXX
+LOP_3         &kp DE_SEMI   &kp N1        &kp N0        &kp DE_PIPE   XXX           XXX                                               XXX           &kp DE_HASH   &kp DE_LBKT   &kp DE_RBKT   &kp DE_SQT    &kp DE_UNDER  XXX
+LAR_1         LAR_2         LAR_3                       L_ENC         &kp BSPC      &kp LTK_2 &kp BSPC                  XXX           ___           XXX           R_ENC                       XXX           XXX           XXX
+                        >;
+
+                        sensor-bindings = <&inc_dec_kp u_TAB_PRV u_TAB_NXT &inc_dec_kp P_ P_>;
+                };
+
+                function_layer {
+                        bindings = <
+XXX           XXX           XXX           XXX           XXX           XXX                                                                           &kp LA(F4)    &kp F7        &kp F8        &kp F9        &kp F10       &bt BT_SEL 0
+XXX           &kp LGUI      &kp LALT      &kp LCTRL     &kp LSHIFT    XXX                                                                           &kp PSCRN     &kp F4        &kp F5        &kp F6        &kp F11       &bt BT_SEL 1
+XXX           XXX           XXX           XXX           XXX           XXX           XXX                                               XXX           &kp LS(PSCRN) &kp F1        &kp F2        &kp F3        &kp F12       &bt BT_SEL 2
+XXX           XXX           XXX                         L_ENC         LT_3          LT_2          LT_1                  XXX           XXX           ___           R_ENC                       XXX           XXX           XXX
+                        >;
+
+                        sensor-bindings = <&inc_dec_kp C_BRI_DN C_BRI_UP &inc_dec_kp u_BRI_DN u_BRI_UP>;
+                };
+
+                phpstorm_layer {
+                        bindings = <
+LOP_1     ________  P_COMPAR              P_FOLD                P_COLAPS  P_EXPAND                                                      &php_sn       P_DECLAR      P_PARAMS      P_Q_DOC       P_Q_DEF       P_CURBAK
+LOP_2     P_W_TERM  &lt P_CMP_L p_CLPCMP  &lt P_FIND_L u_FIND   P_STRPOP  P_COMENT                                                      &php_sd       P_REFACT      P_TEMPL       P_SURWIT      P_SURTPL      P_CURFWD
+LOP_3     ________  &lt P_GIT_L p_W_GIT   &lt P_SEL_L p_SELOCC  P_SELMOR  P_CMNT_B  ________                              ________      &php_sl       P_BOKMRK      P_INTENT      P_REFORM      P_F_STRK      P_W_ReHo
+________  ________  ________                                    L_ENC     ___       P_SETTIN  ________      P_ACTION      XXX           &kp LSHIFT    R_ENC                       RAR_1         RAR_2         RAR_3
+                        >;
+
+                        sensor-bindings = <&inc_dec_kp p_LOCPRV p_LOCNXT &inc_dec_kp u_UNDO u_REDO>;
+                };
+
+                phpstorm_compare_layer { // P_CMP_L
+                        bindings = <
+________  ________  ________  ________  ________  ________                                           ________  P_DIFPOP  P_DIFPRV  ________  ________  ________
+________  ________  ___       P_CMPPRV  P_CMPNXT  ________                                           ________  P_CMPPRV  P_DIFNXT  P_CMPNXT  ________  ________
+________  ________  ________  ________  ________  ________  ________                       ________  ________  P_CMPPRV  P_CMPNXT  ________  ___       ________
+________  ________  ________            L_ENC     ___       ________  ________   ________  ________  ________  R_ENC               ___       ___       ___
+                        >;
+
+                        sensor-bindings = <&inc_dec_kp P_ P_ &inc_dec_kp p_DIFPRV p_DIFNXT>;
+                };
+
+                phpstorm_find_layer { // P_FIND_L
+                        bindings = <
+LOP_1     ________  ________  ________  ________  ________                                           ________  P_PREV    P_NEXT    ________  ________  ________
+LOP_2     ________  P_PREV    ___       P_NEXT    ________                                           P_FIND    P_FINDA   P_REPLAC  P_REPLAA  &kp LA(L) ________  // [ Find+all, Replace+all ] + exclude from replace
+LOP_3     ________  ________  ________  ________  ________  ________                       ________  ________  &kp LA(C) &kp LA(W) &kp LA(X) ___       ________  // [ Case, Words, Regex (find options) ]
+________  ________  ________            L_ENC     ___       ________  ________   ________  ________  ________  R_ENC               ___       ___       ___
+                        >;
+
+                        sensor-bindings = <&inc_dec_kp P_ P_ &inc_dec_kp p_PREV p_NEXT>;
+                };
+
+                phpstorm_git_layer { // P_GIT_L
+                        bindings = <
+LOP_1     ________  ________  ________  ________  ________                                           ________  P_GITPOP  ________  ________  ________  ________
+LOP_2     ________  ________  P_GITPOP  ________  ________                                           ________  P_G_ComW  P_G_Comm  P_G_ComP  P_G_Push  ________
+LOP_3     ________  ___       P_G_ComW  ________  ________  ________                       ________  ________  ________  ________  ________  ________  ________
+________  ________  ________            L_ENC     ___       ________  ________   ________  ________  ________  R_ENC               ___       ___       ___
+                        >;
+
+                        //sensor-bindings = <&inc_dec_kp P_ P_ &inc_dec_kp P_ P_>;
+                };
+
+                phpstorm_selection_layer { // P_SEL_L
+                        bindings = <
+LOP_1     ________  ________  ________  ________  ________                                           ________  ________  ________  ________  ________  ________
+LOP_2     ________  ________  ________  ________  ________                                           ________  P_SELOC_  P_SELOCC  P_CAR_UP  ________  ________  // [ select next occurance        ]   [ clone
+LOP_3     ________  P_PREV    ___       P_NEXT    ________  ________                       ________  ________  P_SELMO_  P_SELMOR  P_CAR_DN  ___       ________  // [ expand selection (more/less) ]     caret ]
+________  ________  ________            L_ENC     ___       ________  ________   ________  ________  ________  R_ENC               ___       ___       ___
+                        >;
+
+                        sensor-bindings = <&inc_dec_kp P_ P_ &inc_dec_kp p_SELOC_ p_SELOCC>;
+                };
+                /* # dvorak based on english keyboard, with vimmy LOP/ROP,  */
+                /* #  */
+        };
+};
