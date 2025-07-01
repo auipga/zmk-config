@@ -22,6 +22,8 @@ manifest:
     revision: v0.2 # Pin everything to v0.2
 
   remotes:
+    - name: caksoylar
+      url-base: https://github.com/caksoylar
     - name: urob
       url-base: https://github.com/urob
     - name: zmkfirmware
@@ -41,6 +43,10 @@ manifest:
       path: modules/zmk/helpers
     - name: zmk-leader-key
       path: modules/zmk/leader-key
+    - name: zmk-smart-toggle
+      path: modules/zmk/smart-toggle
+      remote: caksoylar
+      revision: main
     - name: zmk-tri-state
       path: modules/zmk/tri-state
 

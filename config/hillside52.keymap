@@ -67,6 +67,33 @@
             tapping-term-ms = <300>;
             bindings = <&caps_word>, <&kp CAPS>;
         };
+        // Swapper for smart alt+tab
+        swapper: swapper {
+            compatible = "zmk,behavior-smart-toggle";
+            #binding-cells = <0>;
+            bindings = <&kp LALT>, <&kp TAB>;
+            // ignored-key-positions = <SWP_POS RM1 RM2 RM3 RT2>; (arrows)
+        };
+        // Swapper for smart alt+esc
+        la_esc: la_esc {
+            compatible = "zmk,behavior-smart-toggle";
+            #binding-cells = <0>;
+            bindings = <&kp LALT>, <&kp ESC>;
+        };
+        // Swapper for smart ctrl+tab (formerly U_TAB_NXT)
+        ctrl_tab: ctrl_tab {
+            compatible = "zmk,behavior-smart-toggle";
+            #binding-cells = <0>;
+            bindings = <&kp LCTRL>, <&kp TAB>;
+            ignored-key-positions = <2>;
+        };
+        // Swapper for smart ctrl+shift+tab (formerly U_TAB_PRV)
+        ctrl_ptab: ctrl_ptab {
+            compatible = "zmk,behavior-smart-toggle";
+            #binding-cells = <0>;
+            bindings = <&kp LCTRL>, <&kp LS(TAB)>;
+            ignored-key-positions = <3>;
+        };
     };
 
     macros {
@@ -162,7 +189,7 @@ ________      ________      ________                    L_ENC         &kp LEFT  
 
                 nav_layer {
                         bindings = <
-&kp ESC    &kp LA(ESC)     U_TAB_PRV       U_TAB_NXT        &kp F5             &kp F2                                                               &kp PG_UP     &kp HOME      &kp UP        &kp END       &kp PG_DN     &kp BSPC
+&kp ESC    &la_esc         &ctrl_ptab      &ctrl_tab        &kp F5             &kp F2                                                               &kp PG_UP     &kp HOME      &kp UP        &kp END       &kp PG_DN     &kp BSPC
 U_CONSOL   &sm LGUI LC(X)  &sm LALT LC(C)  &sm LCTRL LC(V)  &sm LSHIFT u_UNDO  P_COMENT                                                             &kp INSERT    &kp LEFT      &kp DOWN      &kp RIGHT     XXX           XXX
 U_SYSMON   &kp LC(A)       &kp LS(LC(C))   &kp LS(LC(V))    &kp u_REDO         P_CMNT_B       &kp LG(L)                               &bootloader   U_PROMPT      &kp LS(TAB)   &kp K_APP     &kp TAB       RAR_0         &kp RET
 XXX        XXX             XXX                              L_ENC              &kp LS(PSCRN)  ___         &bootloader   &kp RTK_1     &kp RTK_2     &kp RTK_3     R_ENC                       RAR_1         RAR_2         RAR_3
