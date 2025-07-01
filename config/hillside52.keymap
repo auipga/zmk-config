@@ -132,8 +132,11 @@
 
                 // for coding:
                 // row 0
-                COMBO( 2,  3, DE_GRAVE) /* `            */ COMBO( 8,  9, DE_RBRC ) // }
-                COMBO( 3,  4, DE_DLLR ) /* $            */ COMBO( 7,  8, DE_LBRC ) // {
+              //COMBO( 1,  2, ___     ) /* pinky        */ COMBO( 9, 10, ___     ) // pinky
+                COMBO( 2,  3, DE_GRAVE) /* `            */ COMBO( 8,  9, DE_RBRC ) // { >>}<<
+                COMBO( 3,  4, DE_DLLR ) /* $            */ COMBO( 7,  8, DE_LBRC ) // >>{<< }
+              //COMBO( 4,  5, ___     ) /* inner        */ COMBO( 6,  7, ___     ) // inner
+              //COMBO( 2,  4, ___     ) /* split        */ COMBO( 7,  9, ___     ) // split
 
                 // row 1
                 //  is fully engaged with home row mods !!
