@@ -18,14 +18,9 @@
 #define DVORAK_L 1 // C_VOL_DN  C_VOL_UP  ✔   ⬅         ➡         ✔
 #define NUM_L    2 // ⬅ prv-tab ➡ nxt-tab ✖   LS(TAB)   TAB       ✔
 #define NAV_L    3 // ⬅ back    ➡ fwd     ✖   ⬆         ⬇         ✔
-#define MED_L    4 // LEFT      RIGHT     ✔                       ✖
-#define SYM_L    5 // u_TAB_PRV u_TAB_NXT ✖                       ✖
-#define FUN_L    6 // C_BRI_DN  C_BRI_UP  ✔  u_BRI_DN  u_BRI_UP   ✖
-#define PHP_L    7 // p_LOCPRV  p_LOCNXT  ✖  u_UNDO    u_REDO     ✖
-#define P_CMP_L  8 //                     ✔  p_DIFPRV  p_DIFNXT   ✔
-#define P_FIND_L 9 //                     ✔  p_PREV    p_NEXT     ✔
-#define P_GIT_L 10 //                     ✖                       ✖
-#define P_SEL_L 11 //                     ✔  p_SELOC_  p_SELOCC   ✔
+#define SYM_L    4 // u_TAB_PRV u_TAB_NXT ✖                       ✖
+#define FUN_L    5 // C_BRI_DN  C_BRI_UP  ✔  u_BRI_DN  u_BRI_UP   ✖
+#define PHP_L    6 // p_LOCPRV  p_LOCNXT  ✖  u_UNDO    u_REDO     ✖
 
 // Home row mods macro
 #define HRML(k1,k2,k3,k4) &sx LGUI  k1   &hm LALT  k2   &hm LCTRL k3   &hm LSHFT k4
@@ -176,17 +171,6 @@ XXX        XXX             XXX                              L_ENC              &
                         sensor-bindings = <&inc_dec_kp u_BACK u_FWD &inc_dec_kp UP DOWN>;
                 };
 
-                media_layer {
-                        bindings = <
-YT_SLOWER     YT_FASTER     XXX           XXX     &bt BT_SEL 0  &out OUT_USB                                                                        XXX   XXX   XXX   XXX   XXX   XXX
-&kp K_PREV    &kp K_NEXT    XXX           XXX     &bt BT_SEL 1  &out OUT_BLE                                                                        XXX   XXX   XXX   XXX   XXX   XXX
-U_DARK        U_ZOOM        XXX           XXX     &bt BT_SEL 2  &bt BT_CLR    &bootloader                                             &bootloader   XXX   XXX   XXX   XXX   RAR_0 XXX
-&kp LEFT      ___           &kp RIGHT             L_ENC         XXX           &sys_reset    XXX                         XXX           &sys_reset    XXX   R_ENC       RAR_1 RAR_2 RAR_3
-                        >;
-
-                        sensor-bindings = <&inc_dec_kp LEFT RIGHT &inc_dec_kp P_ P_>;
-                };
-
                 symbols_layer {
                         bindings = <
                         // ~@*&\   ^<>/%      combos:     `  $      |         {  }
@@ -203,10 +187,10 @@ LAR_1         LAR_2         LAR_3                       L_ENC         &kp BSPC  
 
                 function_layer {
                         bindings = <
-XXX           XXX           XXX           XXX           XXX           XXX                                                                           &kp LA(F4)    &kp F7        &kp F8        &kp F9        &kp F10       &bt BT_SEL 0
+YT_SLOWER     YT_FASTER     &kp K_PREV    &kp K_NEXT    XXX           XXX                                                                           &kp LA(F4)    &kp F7        &kp F8        &kp F9        &kp F10       &bt BT_SEL 0
 XXX           &kp LGUI      &kp LALT      &kp LCTRL     &kp LSHIFT    XXX                                                                           &kp PSCRN     &kp F4        &kp F5        &kp F6        &kp F11       &bt BT_SEL 1
-XXX           XXX           XXX           XXX           XXX           XXX           XXX                                               XXX           &kp LS(PSCRN) &kp F1        &kp F2        &kp F3        &kp F12       &bt BT_SEL 2
-XXX           XXX           XXX                         L_ENC         LT_3          LT_2          LT_1                  XXX           XXX           ___           R_ENC                       XXX           XXX           XXX
+U_DARK        U_ZOOM        XXX           XXX           XXX           XXX           &bootloader                                       &bootloader   &kp LS(PSCRN) &kp F1        &kp F2        &kp F3        &kp F12       &bt BT_SEL 2
+XXX           XXX           XXX                         L_ENC         LT_3          &sys_reset    LT_1                  RT_1          &sys_reset    ___           R_ENC                       &out OUT_USB  &bt BT_CLR    &out OUT_BLE
                         >;
 
                         sensor-bindings = <&inc_dec_kp C_BRI_DN C_BRI_UP &inc_dec_kp u_BRI_DN u_BRI_UP>;
@@ -214,59 +198,17 @@ XXX           XXX           XXX                         L_ENC         LT_3      
 
                 phpstorm_layer {
                         bindings = <
-LOP_1     ________  P_COMPAR              P_FOLD                P_COLAPS  P_EXPAND                                                      &php_sn       P_DECLAR      P_PARAMS      P_Q_DOC       P_Q_DEF       P_CURBAK
-LOP_2     P_W_TERM  &lt P_CMP_L p_CLPCMP  &lt P_FIND_L u_FIND   P_STRPOP  P_COMENT                                                      &php_sd       P_REFACT      P_TEMPL       P_SURWIT      P_SURTPL      P_CURFWD
-LOP_3     ________  &lt P_GIT_L p_W_GIT   &lt P_SEL_L p_SELOCC  P_SELMOR  P_CMNT_B  ________                              ________      &php_sl       P_BOKMRK      P_INTENT      P_REFORM      P_F_STRK      P_W_ReHo
+LOP_1     ________  P_COMPAR  P_FOLD      P_COLAPS  P_EXPAND                                                      &php_sn       P_DECLAR      P_PARAMS      P_Q_DOC       P_Q_DEF       P_CURBAK
+LOP_2     P_W_TERM  P_CLPCMP  U_FIND      P_STRPOP  P_COMENT                                                      &php_sd       P_REFACT      P_TEMPL       P_SURWIT      P_SURTPL      P_CURFWD
+LOP_3     ________  P_W_GIT   P_SELOCC    P_SELMOR  P_CMNT_B  ________                              ________      &php_sl       P_BOKMRK      P_INTENT      P_REFORM      P_F_STRK      P_W_ReHo
 ________  ________  ________                                    L_ENC     ___       P_SETTIN  ________      P_ACTION      XXX           &kp LSHIFT    R_ENC                       RAR_1         RAR_2         RAR_3
                         >;
 
                         sensor-bindings = <&inc_dec_kp p_LOCPRV p_LOCNXT &inc_dec_kp u_UNDO u_REDO>;
                 };
 
-                phpstorm_compare_layer { // P_CMP_L
-                        bindings = <
-________  ________  ________  ________  ________  ________                                           ________  P_DIFPOP  P_DIFPRV  ________  ________  ________
-________  ________  ___       P_CMPPRV  P_CMPNXT  ________                                           ________  P_CMPPRV  P_DIFNXT  P_CMPNXT  ________  ________
-________  ________  ________  ________  ________  ________  ________                       ________  ________  P_CMPPRV  P_CMPNXT  ________  ___       ________
-________  ________  ________            L_ENC     ___       ________  ________   ________  ________  ________  R_ENC               ___       ___       ___
-                        >;
-
-                        sensor-bindings = <&inc_dec_kp P_ P_ &inc_dec_kp p_DIFPRV p_DIFNXT>;
-                };
-
-                phpstorm_find_layer { // P_FIND_L
-                        bindings = <
-LOP_1     ________  ________  ________  ________  ________                                           ________  P_PREV    P_NEXT    ________  ________  ________
-LOP_2     ________  P_PREV    ___       P_NEXT    ________                                           P_FIND    P_FINDA   P_REPLAC  P_REPLAA  &kp LA(L) ________  // [ Find+all, Replace+all ] + exclude from replace
-LOP_3     ________  ________  ________  ________  ________  ________                       ________  ________  &kp LA(C) &kp LA(W) &kp LA(X) ___       ________  // [ Case, Words, Regex (find options) ]
-________  ________  ________            L_ENC     ___       ________  ________   ________  ________  ________  R_ENC               ___       ___       ___
-                        >;
-
-                        sensor-bindings = <&inc_dec_kp P_ P_ &inc_dec_kp p_PREV p_NEXT>;
-                };
-
-                phpstorm_git_layer { // P_GIT_L
-                        bindings = <
-LOP_1     ________  ________  ________  ________  ________                                           ________  P_GITPOP  ________  ________  ________  ________
-LOP_2     ________  ________  P_GITPOP  ________  ________                                           ________  P_G_ComW  P_G_Comm  P_G_ComP  P_G_Push  ________
-LOP_3     ________  ___       P_G_ComW  ________  ________  ________                       ________  ________  ________  ________  ________  ________  ________
-________  ________  ________            L_ENC     ___       ________  ________   ________  ________  ________  R_ENC               ___       ___       ___
-                        >;
-
-                        //sensor-bindings = <&inc_dec_kp P_ P_ &inc_dec_kp P_ P_>;
-                };
-
-                phpstorm_selection_layer { // P_SEL_L
-                        bindings = <
-LOP_1     ________  ________  ________  ________  ________                                           ________  ________  ________  ________  ________  ________
-LOP_2     ________  ________  ________  ________  ________                                           ________  P_SELOC_  P_SELOCC  P_CAR_UP  ________  ________  // [ select next occurance        ]   [ clone
-LOP_3     ________  P_PREV    ___       P_NEXT    ________  ________                       ________  ________  P_SELMO_  P_SELMOR  P_CAR_DN  ___       ________  // [ expand selection (more/less) ]     caret ]
-________  ________  ________            L_ENC     ___       ________  ________   ________  ________  ________  R_ENC               ___       ___       ___
-                        >;
-
-                        sensor-bindings = <&inc_dec_kp P_ P_ &inc_dec_kp p_SELOC_ p_SELOCC>;
-                };
                 /* # dvorak based on english keyboard, with vimmy LOP/ROP,  */
                 /* #  */
         };
 };
+// vim: nowrap filetype=c foldmethod=marker foldmarker={,} textwidth=500
