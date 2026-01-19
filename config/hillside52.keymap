@@ -15,7 +15,7 @@
 #include "keymap-phpstorm.h"
 
 #define DK_HRM_L 0 // C_VOL_DN  C_VOL_UP  ✔   ⬅         ➡         ✔
-#define DVORAK_L 1 // C_VOL_DN  C_VOL_UP  ✔   ⬅         ➡         ✔
+#define DK_EN_L  1 // C_VOL_DN  C_VOL_UP  ✔   ⬅         ➡         ✔
 #define NUM_L    2 // ⬅ prv-tab ➡ nxt-tab ✖   LS(TAB)   TAB       ✔
 #define NAV_L    3 // ⬅ back    ➡ fwd     ✖   ⬆         ⬇         ✔
 #define SYM_L    4 // u_TAB_PRV u_TAB_NXT ✖                       ✖
@@ -157,19 +157,19 @@
             bindings = <
 LOP_1         &kp  DE_SQT   &kp  DE_COMMA &kp  DE_DOT   &kp  P        &kp  DE_Y                                                                     &kp  F        &kp  G        &kp  C        &kp  R        &kp  L        &kp KP_SLASH
 LOP_2         HRML(A,       O,            E,            U       )     &kp  I                                                                        &kp  D        HRMR(H,       T,            N,            S       )     &kp DE_MINUS
-LOP_3         &kp  DE_SEMI  &kp Q         &kp  J        &kp  K        &kp  X        LT_2_1                                            RT_2_1        &kp  B        &kp  M        &kp  W        &kp V         &kp DE_Z      ROP_3
+LOP_3         &kp  DE_SEMI  &kp Q         &kp  J        &kp  K        &kp  X        LT_2_1                                            &to DK_EN_L   &kp  B        &kp  M        &kp  W        &kp V         &kp DE_Z      ROP_3
 LAR_1         LAR_2         LAR_3                       L_ENC         LT_3          LT_2          LT_1                  RT_1          RT_2          RT_3          R_ENC                       RAR_1         RAR_2         RAR_3
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp LEFT RIGHT>;
         };
 
-        dvorak_layer {
+        dvorak_en_hrm_layer {
             bindings = <
-LOP_1         &kp  DE_SQT   &kp  DE_COMMA &kp  DE_DOT   &kp  P        &kp  DE_Y                                                                     &kp  F        &kp  G        &kp  C        &kp  R        &kp  L        &kp KP_SLASH
-LOP_2         &kp  A        &kp  O        &kp  E        &kp  U        &kp  I                                                                        &kp  D        &kp  H        &kp  T        &kp  N        &kp  S        &kp DE_MINUS
-LOP_3         &kp  DE_SEMI  &kp  Q        &kp  J        &kp  K        &kp  X        LT_2_1                                            RT_2_1        &kp  B        &kp  M        &kp  W        &kp  V        &kp DE_Z      ROP_3
-LAR_1         LAR_2         LAR_3                       L_ENC         LT_3          LT_2          LT_1                  RT_1          RT_2          RT_3          R_ENC                       RAR_1         RAR_2         RAR_3
+&kp ESC       &kp  SQT    &kp  COMMA  &kp  DOT    &kp  P      &kp  Y                                                              &kp  F      &kp  G      &kp  C      &kp  R      &kp  L      &kp SLASH
+&hm LSHFT TAB HRML(A,     O,          E,          U       )   &kp  I                                                              &kp  D      HRMR(H,     T,          N,          S       )   &kp MINUS
+&kp LCTRL     &kp  SEMI   &kp Q       &kp  J      &kp  K      &kp  X      LT_2_1                                      &to DK_HRM_L&kp  B      &kp  M      &kp  W      &kp V       &kp Z       ROP_3
+LAR_1         LAR_2       LAR_3                   L_ENC       LT_3        LT_2        LT_1                RT_1        RT_2        RT_3        R_ENC                   XXX         XXX         XXX
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp LEFT RIGHT>;
