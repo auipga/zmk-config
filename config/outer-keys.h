@@ -70,7 +70,7 @@
 // Left Thumb Layer switching
 #define LTL_1    NUM_L  // ✔
 #define LTL_2    NAV_L  // ✔
-#define LTL_3    PHP_L  //
+#define LTL_3    NUM_L  //
 //#define LTL_4    L_ENC   ✔
 //#define LTL_2_1  L_DISPL ✔
 

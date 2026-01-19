@@ -12,7 +12,6 @@
 #include "combos.h"
 #include "keymap-german-rev3.h"
 #include "keymap-linux.h"
-#include "keymap-phpstorm.h"
 
 #define DK_HRM_L 0 // C_VOL_DN  C_VOL_UP  ✔   ⬅         ➡         ✔
 #define DK_EN_L  1 // C_VOL_DN  C_VOL_UP  ✔   ⬅         ➡         ✔
@@ -20,7 +19,6 @@
 #define NAV_L    3 // ⬅ back    ➡ fwd     ✖   ⬆         ⬇         ✔
 #define SYM_L    4 // u_TAB_PRV u_TAB_NXT ✖                       ✖
 #define FUN_L    5 // C_BRI_DN  C_BRI_UP  ✔  u_BRI_DN  u_BRI_UP   ✖
-#define PHP_L    6 // p_LOCPRV  p_LOCNXT  ✖  u_UNDO    u_REDO     ✖
 
 // Home row mods macro
 #define HRML(k1,k2,k3,k4) &sx LGUI  k1   &hm LALT  k2   &hm LCTRL k3   &hm LSHFT k4
@@ -103,15 +101,6 @@
     };
 
     macros {
-        // '->' object operator
-        ZMK_MACRO(php_oo,    bindings = <&kp DE_MINUS  &kp DE_GT     >; )
-        // ' => ' double arrow operator
-        ZMK_MACRO(php_dao,   bindings = <&kp SPACE     &kp DE_EQUAL  &kp DE_GT     &kp SPACE     >; )
-        // Scratch (PhpStorm)
-        ZMK_MACRO(php_sn,    bindings = <&kp LA(C)     &kp LA(A)     >; ) // New Scratch
-        ZMK_MACRO(php_sd,    bindings = <&kp LA(C)     &kp LA(C)     >; ) // Open Default Scratch
-        ZMK_MACRO(php_sl,    bindings = <&kp LA(C)     &kp LA(S)     >; ) // Open Scratch List
-
         // other stuff
         ZMK_MACRO(a_ret,     bindings = <&kp A         &kp RET       >; )
     };
@@ -142,12 +131,11 @@
         //  is fully engaged with home row mods !!
 
         // row 2
-        COMBC(27, 28, &php_oo ) /* `->`         */ COMBO(33, 34, DE_EQUAL) // =
-        COMBC(28, 29, &php_dao) // ` => ` inner */ COMBC(32, 33, ___     ) //
+      /*COMBC(27, 28, ___     ) /*              */ COMBO(33, 34, DE_EQUAL) // =
+      //COMBC(28, 29, ___     ) /* inner        */ COMBC(32, 33, ___     ) //
 
         // Other
         COMBC( 16, 19, &capsing) // both hrm shifts, 1st caps_word, 2nd CAPS
-        COMBC( 17, 18, &tog DVORAK_L)
     };
 
     keymap {
@@ -193,8 +181,8 @@ ________      ________      ________                    L_ENC         &kp LEFT  
         nav_layer {
             bindings = <
 &kp ESC    &la_esc         &ctrl_ptab      &ctrl_tab        &kp F5             &kp F2                                                               &kp PG_UP     &kp HOME      &kp UP        &kp END       &kp PG_DN     &kp BSPC
-U_CONSOL   &sm LGUI LC(X)  &sm LALT LC(C)  &sm LCTRL LC(V)  &sm LSHIFT u_UNDO  P_COMENT                                                             &kp INSERT    &kp LEFT      &kp DOWN      &kp RIGHT     XXX           XXX
-U_SYSMON   &kp LC(A)       &kp LS(LC(C))   &kp LS(LC(V))    &kp u_REDO         P_CMNT_B       &kp LG(L)                               &bootloader   U_PROMPT      &kp LS(TAB)   &kp K_APP     &kp TAB       RAR_0         &kp RET
+U_CONSOL   &sm LGUI LC(X)  &sm LALT LC(C)  &sm LCTRL LC(V)  &sm LSHIFT u_UNDO  &kp LC(W)                                                            &kp INSERT    &kp LEFT      &kp DOWN      &kp RIGHT     XXX           XXX
+U_SYSMON   &kp LC(A)       &kp LS(LC(C))   &kp LS(LC(V))    &kp u_REDO         &kp LC(S)      &kp LG(L)                               &bootloader   U_PROMPT      &kp LS(TAB)   &kp K_APP     &kp TAB       RAR_0         &kp RET
 XXX        XXX             XXX                              L_ENC              &kp LS(PSCRN)  ___         &bootloader   &kp RTK_1     &kp RTK_2     &kp RTK_3     R_ENC                       RAR_1         RAR_2         RAR_3
             >;
 
@@ -224,17 +212,6 @@ XXX           XXX           XXX                         L_ENC         LT_3      
             >;
 
             sensor-bindings = <&inc_dec_kp C_BRI_DN C_BRI_UP &inc_dec_kp u_BRI_DN u_BRI_UP>;
-        };
-
-        phpstorm_layer {
-            bindings = <
-LOP_1     ________  P_COMPAR  P_FOLD      P_COLAPS  P_EXPAND                                                      &php_sn       P_DECLAR      P_PARAMS      P_Q_DOC       P_Q_DEF       P_CURBAK
-LOP_2     P_W_TERM  P_CLPCMP  U_FIND      P_STRPOP  P_COMENT                                                      &php_sd       P_REFACT      P_TEMPL       P_SURWIT      P_SURTPL      P_CURFWD
-LOP_3     ________  P_W_GIT   P_SELOCC    P_SELMOR  P_CMNT_B  ________                              ________      &php_sl       P_BOKMRK      P_INTENT      P_REFORM      P_F_STRK      P_W_ReHo
-________  ________  ________                                    L_ENC     ___       P_SETTIN  ________      P_ACTION      XXX           &kp LSHIFT    R_ENC                       RAR_1         RAR_2         RAR_3
-            >;
-
-            sensor-bindings = <&inc_dec_kp p_LOCPRV p_LOCNXT &inc_dec_kp u_UNDO u_REDO>;
         };
 
                 /* # dvorak based on english keyboard, with vimmy LOP/ROP,  */
