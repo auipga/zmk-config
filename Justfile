@@ -41,6 +41,34 @@ build expr *west_args:
         just _build_single "$board" "$shield" "$snippet" "$artifact" {{ west_args }}
     done
 
+# copy an UF2 file to device
+flash $name $side='left':
+    #!/bin/bash
+    uf2_file=firmware/${name}_${side}-nice_nano_v2.uf2
+    target=/run/media/${USER}/NICENANO
+
+    echo Name: $name
+    echo Side: $side
+    echo Firmware file: $uf2_file
+    echo
+    echo -n "Waiting for $target (Ctrl-C to cancel) "
+
+    until [ -w $target ]; do
+      sleep .5
+      echo -n .
+    done
+
+    echo
+    echo Copying...
+    cp $uf2_file -d $target
+
+    if [ "$?" != "0" ]; then
+      echo Errors occured
+      exit $?
+    fi
+
+    echo Done.
+
 # clear build cache and artifacts
 clean:
     rm -rf {{ build }} {{ out }}
