@@ -84,14 +84,14 @@
             #binding-cells = <0>;
             bindings = <&kp LALT>, <&kp ESC>;
         };
-        // Swapper for smart ctrl+tab (formerly U_TAB_NXT)
+        // Swapper for smart ctrl+tab
         ctrl_tab: ctrl_tab {
             compatible = "zmk,behavior-smart-toggle";
             #binding-cells = <0>;
             bindings = <&kp LCTRL>, <&kp TAB>;
             ignored-key-positions = <2>;
         };
-        // Swapper for smart ctrl+shift+tab (formerly U_TAB_PRV)
+        // Swapper for smart ctrl+shift+tab
         ctrl_ptab: ctrl_ptab {
             compatible = "zmk,behavior-smart-toggle";
             #binding-cells = <0>;
@@ -213,9 +213,6 @@ XXX           XXX           XXX                         L_ENC         LT_3      
 
             sensor-bindings = <&inc_dec_kp C_BRI_DN C_BRI_UP &inc_dec_kp u_BRI_DN u_BRI_UP>;
         };
-
-                /* # dvorak based on english keyboard, with vimmy LOP/ROP,  */
-                /* #  */
     };
 };
 
