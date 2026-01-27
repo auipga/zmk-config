@@ -80,3 +80,4 @@ ZMK_BASE_LAYER(Nav,
                                 &kp PSCRN     XXX           &bootloader ,   ___           CANCEL        ___
 //                            ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯
 )
+/* vim: set nowrap ft=c foldmethod=marker foldmarker=(,) tw=146: */
