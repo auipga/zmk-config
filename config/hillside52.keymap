@@ -33,6 +33,16 @@
 #include "zmk-helpers/key-labels/hillside52.h"
 #include "base.keymap"
 
+// Swapper for smart alt+esc
+ZMK_TRI_STATE(la_esc, bindings = <&kt LALT>, <&kp ESC>, <&kt LALT>;
+              ignored-key-positions = <LT5 RT2 RM1 RM2 RM3>;) // itself and arrows
+// Swapper for smart ctrl+tab
+ZMK_TRI_STATE(ctrl_tab, bindings = <&kt LCTRL>, <&kp TAB>, <&kt LCTRL>;
+              ignored-key-positions = <LT3 LT4 RT2 RM1 RM2 RM3>;) // itself and arrows
+// Swapper for smart ctrl+shift+tab
+ZMK_TRI_STATE(ctrl_ptab, bindings = <&kt LCTRL>, <&kp LS(TAB)>, <&kt LCTRL>;
+              ignored-key-positions = <LT3 LT4 RT2 RM1 RM2 RM3>;) // itself and arrows
+
 ZMK_BASE_LAYER(Base,
 //╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
     &kp SQT       &kp COMMA     &kp DOT       &kp P         &kp Y       ,   &kp F         &kp G         &kp C         &kp R         &kp L       ,
@@ -42,5 +52,31 @@ ZMK_BASE_LAYER(Base,
     &kp SEMI      &kp Q         &kp J         &kp K         &kp X       ,   &kp B         &kp M         &kp W         &kp V         &kp Z       ,
 //╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯
                                 ___           &lt_spc NAV 0 SMART_NUM   ,   &lt FN RET    MAGIC_SHIFT   ___
+//                            ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯
+)
+
+// TODO: &lt to &sm
+#define NAV_CUT    &lt LGUI LC(X)
+#define NAV_COPY   &lt LALT LC(C)
+#define NAV_PASTE  &lt LCTRL LC(V)
+#define NAV_UNDO   &lt LSHIFT LC(Z)
+#define REDO       &kp LS(LC(Z))
+#define ALL        &kp LC(A)
+#define CONS_COPY  &kp LS(LC(C)) // copy from console
+#define CONS_PASTE &kp LS(LC(V)) // paste to console
+#define VIM_WIN    &kp LC(W)
+#define SAVE       &kp LC(S)
+
+ZMK_BASE_LAYER(Nav,
+// TODO: add LG(L) to LH4
+
+//╭─────────────┬─────────────┬─────────────┬─────────────┬─*───────────╮ ╭─────────────┬─*───────────┬─────────────┬─*───────────┬─*───────────╮
+    &la_esc       &ctrl_ptab    &ctrl_tab     &kp F5        &swapper    ,   &kp PG_UP     NAV_BSPC      NAV_UP        NAV_DEL       &kp PG_DN   ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─*───────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    NAV_CUT       NAV_COPY      NAV_PASTE     NAV_UNDO      VIM_WIN     ,   &kp PG_DN     NAV_LEFT      NAV_DOWN      NAV_RIGHT     &kp RET     ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    ALL           CONS_COPY     CONS_PASTE    REDO          SAVE        ,   &kp INS       &kp LS(TAB)   &kp K_APP     &kp TAB       ___         ,
+//╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯
+                                &kp PSCRN     XXX           &bootloader ,   ___           CANCEL        ___
 //                            ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯
 )
