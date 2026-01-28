@@ -26,7 +26,7 @@
         name,                                                                            \
         &kp ESC                  LT                RT                    &kp SLASH  \
         &none                    LM                RM                    &kp MINUS  \
-        &none                    LB &none    &none RB                    &none  \
+        &none                    LB &pass    &none RB                    &none  \
         &none &none &none  &none LH                RH &none  &none &none &none  \
     )
 
@@ -42,6 +42,9 @@ ZMK_TRI_STATE(ctrl_tab, bindings = <&kt LCTRL>, <&kp TAB>, <&kt LCTRL>;
 // Swapper for smart ctrl+shift+tab
 ZMK_TRI_STATE(ctrl_ptab, bindings = <&kt LCTRL>, <&kp LS(TAB)>, <&kt LCTRL>;
               ignored-key-positions = <LT3 LT4 RT2 RM1 RM2 RM3>;) // itself and arrows
+// password  WARN: never commit the next line
+ZMK_MACRO(pass, bindings = <&kp RET>;
+          wait-ms = <0>; tap-ms = <5>;)
 
 ZMK_BASE_LAYER(Base,
 //╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
