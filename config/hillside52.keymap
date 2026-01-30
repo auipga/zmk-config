@@ -65,8 +65,8 @@ ZMK_BASE_LAYER(Base,
 #define NAV_UNDO   &lt LSHIFT LC(Z)
 #define REDO       &kp LS(LC(Z))
 #define ALL        &kp LC(A)
-#define CONS_COPY  &kp LS(LC(C)) // copy from console
-#define CONS_PASTE &kp LS(LC(V)) // paste to console
+#define TERM_COPY  &kp LS(LC(C))
+#define TERM_PASTE &kp LS(LC(V))
 #define VIM_WIN    &kp LC(W)
 #define SAVE       &kp LC(S)
 
@@ -78,7 +78,7 @@ ZMK_BASE_LAYER(Nav,
 //├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─*───────────┼─────────────┼─────────────┼─────────────┼─────────────┤
     NAV_CUT       NAV_COPY      NAV_PASTE     NAV_UNDO      VIM_WIN     ,   &kp PG_DN     NAV_LEFT      NAV_DOWN      NAV_RIGHT     &kp RET     ,
 //├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-    ALL           CONS_COPY     CONS_PASTE    REDO          SAVE        ,   &kp INS       &kp LS(TAB)   &kp K_APP     &kp TAB       ___         ,
+    ALL           TERM_COPY     TERM_PASTE    REDO          SAVE        ,   &kp INS       &kp LS(TAB)   &kp K_APP     &kp TAB       ___         ,
 //╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯
                                 &kp PSCRN     XXX           &bootloader ,   ___           CANCEL        ___
 //                            ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯
