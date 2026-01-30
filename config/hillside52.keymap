@@ -34,6 +34,10 @@
 #include "zmk-helpers/key-labels/hillside52.h"
 #include "base.keymap"
 
+&uc {
+  default-mode = <UC_MODE_LINUX>;
+};
+
 // Swapper for smart alt+esc
 ZMK_TRI_STATE(la_esc, bindings = <&kt LALT>, <&kp ESC>, <&kt LALT>;
               ignored-key-positions = <LT5 RT2 RM1 RM2 RM3>;) // itself and arrows
