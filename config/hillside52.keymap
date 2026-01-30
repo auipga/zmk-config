@@ -22,12 +22,13 @@
 
 #define CONFIG_WIRELESS
 #define ZMK_BASE_LAYER(name, LT, RT, LM, RM, LB, RB, LH, RH)                             \
-    ZMK_LAYER(                                                                           \
+    ZMK_LAYER_3(                                                                           \
         name,                                                                            \
         &kp ESC                  LT                RT                    &kp SLASH  \
         &none                    LM                RM                    &kp MINUS  \
         &none                    LB &pass    &none RB                    &none  \
-        &none &none &none  &none LH                RH &none  &none &none &none  \
+        &none &none &none  &none LH                RH &none  &none &none &none,  \
+        &inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_DN PG_UP \
     )
 
 #include "zmk-helpers/key-labels/hillside52.h"
