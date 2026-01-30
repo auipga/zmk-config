@@ -12,12 +12,14 @@
   #define _BT_SEL_KEYS_ &trans &trans &trans &trans &trans
 #endif
 
+/*
 #define DEF 0
 #define NAV 1
 #define FN 2
 #define NUM 3
 #define SYS 4
 #define MOUSE 5
+*/
 
 #define XXX &none
 #define ___ &trans
@@ -197,6 +199,7 @@ ZMK_CONDITIONAL_LAYER(sys, FN NUM, SYS) // FN + NUM --> SYS.
       ZMK_LAYER(name, LT RT LM RM LB RB LH RH)
 #endif
 
+/*
 ZMK_BASE_LAYER(Base,
 //╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
     &kp Q         &kp W         &kp F         &kp P         &kp B       ,   &kp J         &kp L         &kp U         &kp Y         &kp SQT     ,
@@ -268,5 +271,6 @@ ZMK_BASE_LAYER(Mouse,
                                               ___           ___         ,   U_WH_U        U_WH_D
 //                                          ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
 )
+*/
 
 /* vim: set ft=c tw=146: */
