@@ -64,10 +64,10 @@ ZMK_BASE_LAYER(Base,
 )
 
 // TODO: &lt to &sm
-#define NAV_CUT    &lt LGUI LC(X)
-#define NAV_COPY   &lt LALT LC(C)
-#define NAV_PASTE  &lt LCTRL LC(V)
-#define NAV_UNDO   &lt LSHIFT LC(Z)
+#define NAV_CUT    &hml LGUI LC(X)
+#define NAV_COPY   &hml LALT LC(C)
+#define NAV_PASTE  &hml LCTRL LC(V)
+#define NAV_UNDO   &hml LSHIFT LC(Z)
 #define REDO       &kp LS(LC(Z))
 #define ALL        &kp LC(A)
 #define TERM_COPY  &kp LS(LC(C))
