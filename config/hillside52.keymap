@@ -28,7 +28,7 @@
         &none                    LM                RM                    &kp MINUS  \
         &none                    LB &pass    &none RB                    &none  \
         &none &none &none  &none LH                RH &none  &none &none &none,  \
-        &inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_DN PG_UP \
+        &inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_UP PG_DN \
     )
 
 #include "zmk-helpers/key-labels/hillside52.h"
