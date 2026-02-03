@@ -40,7 +40,7 @@
 
 // Swapper for smart alt+esc
 ZMK_TRI_STATE(la_esc, bindings = <&kt LALT>, <&kp ESC>, <&kt LALT>;
-              ignored-key-positions = <LT5 RT2 RM1 RM2 RM3>;) // itself and arrows
+              ignored-key-positions = <LT5>;) // itself only
 // Swapper for smart ctrl+tab
 ZMK_TRI_STATE(ctrl_tab, bindings = <&kt LCTRL>, <&kp TAB>, <&kt LCTRL>;
               ignored-key-positions = <LT3 LT4 RT2 RM1 RM2 RM3>;) // itself and arrows
