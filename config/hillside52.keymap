@@ -41,12 +41,35 @@
 // Swapper for smart alt+esc
 ZMK_TRI_STATE(la_esc, bindings = <&kt LALT>, <&kp ESC>, <&kt LALT>;
               ignored-key-positions = <LT5>;) // itself only
+#ifdef BUG_IS_FIXED
+// BUG: LCTRL for ptab is only applied when tab was not used before
+// fix: add LT3 and LT4 to both ignored-key-positions. but this leads to:
+// BUG: LCTRL is released when changing the direction (tab<->ptab) and JetBrains' Switcher Popup triggers on the selected item
 // Swapper for smart ctrl+tab
 ZMK_TRI_STATE(ctrl_tab, bindings = <&kt LCTRL>, <&kp TAB>, <&kt LCTRL>;
               ignored-key-positions = <LT3 RT2 RM1 RM2 RM3 RB1 RB3>;) // itself and arrows and tabs
 // Swapper for smart ctrl+shift+tab
 ZMK_TRI_STATE(ctrl_ptab, bindings = <&kt LCTRL>, <&kp LS(TAB)>, <&kt LCTRL>;
               ignored-key-positions = <LT4 RT2 RM1 RM2 RM3 RB1 RB3>;) // itself and arrows and tabs
+#else
+// WORKAROUND: use my old implementation
+/ { behaviors {
+    // Swapper for smart ctrl+tab
+    ctrl_tab: ctrl_tab {
+        compatible = "zmk,behavior-smart-toggle";
+        #binding-cells = <0>;
+        bindings = <&kp LCTRL>, <&kp TAB>;
+        ignored-key-positions = <LT3 RT2 RM1 RM2 RM3 RB1 RB3>; // itself and arrows and tabs
+    };
+    // Swapper for smart ctrl+shift+tab
+    ctrl_ptab: ctrl_ptab {
+        compatible = "zmk,behavior-smart-toggle";
+        #binding-cells = <0>;
+        bindings = <&kp LCTRL>, <&kp LS(TAB)>;
+        ignored-key-positions = <LT4 RT2 RM1 RM2 RM3 RB1 RB3>; // itself and arrows and tabs
+    };
+}; };
+#endif
 // password  WARN: never commit the next line
 ZMK_MACRO(pass, bindings = <&kp RET>;
           wait-ms = <0>; tap-ms = <5>;)
