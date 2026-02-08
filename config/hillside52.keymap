@@ -11,7 +11,7 @@
  │ LT5 LT4 LT3 LT2 LT1 LT0 │               │ RT0 RT1 RT2 RT3 RT4 RT5 │
  │ LM5 LM4 LM3 LM2 LM1 LM0 ╰──╮         ╭──╯ RM0 RM1 RM2 RM3 RM4 RM5 │
  │ LB5 LB4 LB3 LB2 LB1 LB0 LH4╰────┬────╯RH4 RB0 RB1 RB2 RB3 RB4 RB5 │
- │ LP2 LP1 LP0╭───╮LH3 LH2 LH1 LH0 │ RH0 RH1 RH2 RH3╭───╮RP0 RP1 RP2 │
+ │ LP2 LP1 LP0╭───╮LEC LH2 LH1 LH0 │ RH0 RH1 RH2 REC╭───╮RP0 RP1 RP2 │
  ╰────────────╯   ╰────────────────┴────────────────╯   ╰────────────╯
  T : Top
  M : Middle
@@ -21,12 +21,27 @@
 */
 
 #define CONFIG_WIRELESS
+#define DEF 0
+#define NAV 1
+#define FN 2
+#define NUM 3
+#define SYS 4
+#define MOUSE 5
+#define VIM_NAV 6
+#define VIM_HJKL 7
+#define VIM_WS 8
+#define VIM_RS 9
+#define VIM_PS 10
+
+// &kp K_PREV    &kp K_NEXT
+// &out OUT_USB  &bt BT_CLR    &out OUT_BLE &bt BT_SEL 2
+//
 #define ZMK_BASE_LAYER(name, LT, RT, LM, RM, LB, RB, LH, RH)                             \
     ZMK_LAYER_3(                                                                           \
         name,                                                                            \
         &kp ESC                  LT                RT                    &kp SLASH  \
         &none                    LM                RM                    &kp MINUS  \
-        &none                    LB &pass    &none RB                    &none  \
+        &none                    LB &pass    &none RB                    &bt BT_NXT \
         &none &none &none  &none LH                RH &none  &none &none &none,  \
         &inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_UP PG_DN \
     )
@@ -49,6 +64,7 @@ ZMK_TRI_STATE(la_esc, bindings = <&kt LALT>, <&kp ESC>, <&kt LALT>;
 ZMK_TRI_STATE(ctrl_tab, bindings = <&kt LCTRL>, <&kp TAB>, <&kt LCTRL>;
               ignored-key-positions = <LT3 RT2 RM1 RM2 RM3 RB1 RB3>;) // itself and arrows and tabs
 // Swapper for smart ctrl+shift+tab
+// TODO: fix this after using the above
 ZMK_TRI_STATE(ctrl_ptab, bindings = <&kt LCTRL>, <&kp LS(TAB)>, <&kt LCTRL>;
               ignored-key-positions = <LT4 RT2 RM1 RM2 RM3 RB1 RB3>;) // itself and arrows and tabs
 #else
@@ -74,6 +90,7 @@ ZMK_TRI_STATE(ctrl_ptab, bindings = <&kt LCTRL>, <&kp LS(TAB)>, <&kt LCTRL>;
 ZMK_MACRO(pass, bindings = <&kp RET>;
           wait-ms = <0>; tap-ms = <5>;)
 
+
 ZMK_BASE_LAYER(Base,
 //╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
     &kp SQT       &kp COMMA     &kp DOT       &kp P         &kp Y       ,   &kp F         &kp G         &kp C         &kp R         &kp L       ,
@@ -82,7 +99,8 @@ ZMK_BASE_LAYER(Base,
 //├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
     &kp SEMI      &kp Q         &kp J         &kp K         &kp X       ,   &kp B         &kp M         &kp W         &kp V         &kp Z       ,
 //╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯
-                                ___           &lt_spc NAV 0 SMART_NUM   ,   &lt FN RET    MAGIC_SHIFT   ___
+                              &lt VIM_NAV ESC &lt_spc NAV 0 SMART_NUM   ,   &lt FN RET    MAGIC_SHIFT   &lt FN DEL
+                       // TODO: ___           &lt_spc NAV 0 &lt NUM RET ,   &lt XX RET    BSPC_SHIFT    &lt FN DEL
 //                            ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯
 )
 
@@ -137,7 +155,7 @@ ZMK_BASE_LAYER(Num,
 //├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
     &kp LGUI      &kp LALT      &kp LCTRL     &kp LSHIFT    ___         ,   &kp PLUS      &kp N4        &kp N5        &kp N6        &kp DOT     , // &kp KP_MINUS,
 //├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-    ___           ___           ___           ___           ___         ,   &kp STAR      &kp N1        &kp N2        &kp N3        XXX, // &curr_euro  , // &kp DE_COMMA,
+    ___           ___           ___           ___           ___         ,   &kp STAR      &kp N1        &kp N2        &kp N3        &curr_euro  , // &kp DE_COMMA,
 //╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯
                                 ___           ___           ___         ,   &kp BSPC      &kp N0        &kp DEL
 //                            ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯
@@ -165,6 +183,53 @@ ZMK_BASE_LAYER(Mouse,
 //╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯
                                               ___           ___         ,   U_WH_U        U_WH_D
 //                                          ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
+)
+
+// &kp TILDE     &kp AT        &kp STAR      &kp AMPS      &kp BSLH                                                                      &kp CARET     &kp LT        &kp GT        &kp FSLH      &kp PRCNT     &kp BSPC
+// &kp DE_EURO   &kp COLON     &kp MINUS     &kp PLUS      XXX                                                                           &kp EXCL      &kp LPAR      &kp RPAR      &kp DQT       &kp QMARK     XXX
+// &kp SEMI      &kp N1        &kp N0        &kp PIPE      XXX           XXX                                               XXX           &kp HASH      &kp LBKT      &kp RBKT      &kp SQT       &kp UNDER     XXX
+// LAR_2         LAR_3                       L_ENC         &kp BSPC      &kp LTK_2 &kp BSPC                  XXX           ___           XXX           R_ENC                       XXX           XXX           XXX
+// COMBO( 8,  9, RBKT )
+// COMBO( 7,  8, LBKT )
+
+// Vim navigation
+#define LINE_START      &kp N0
+#define FIRST_CHAR      &kp CARET
+#define PREV_WORD       &kp B
+#define PREV_WORD_E     &kp G // &vim_ge
+#define INSERT          &kp I
+#define APPEND          &kp A
+#define NEXT_WORD       &kp W
+#define NEXT_WORD_E     &kp E
+#define LAST_CHAR       &kp G // &vim_g_
+#define LINE_END        &kp DOLLAR
+
+#define JUMP_FORW       &kp F
+#define JUMP_FORW_T     &kp T
+#define JUMP_BACK       &kp LS(F)
+#define JUMP_BACK_T     &kp LS(T)
+
+#define I_ONE_SHOT      &kp LS(O)
+#define HOME_LINE       &kp H
+#define MIDDLE_LINE     &kp M
+#define LAST_LINE       &kp L
+#define LINE_UP         &kp PLUS
+#define LINE_DN         &kp MINUS
+
+ZMK_BASE_LAYER(Vim_Navigation,
+// TODO:
+// &mo VIM_WS
+// &mo VIM_RS
+// &mo VIM_PS
+//╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+    ___           ___           ___           JUMP_BACK_T   JUMP_BACK   ,   JUMP_FORW     JUMP_FORW_T   ___           ___           ___         ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    LINE_START    FIRST_CHAR    PREV_WORD     PREV_WORD_E   INSERT      ,   APPEND        NEXT_WORD     NEXT_WORD_E   LAST_CHAR     LINE_END    ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    ___           ___           ___           ___           ___         ,   ___           ___           ___           ___           ___         ,
+//╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯
+                                ___           ___           ___         ,   ___           ___           ___
+//                            ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯
 )
 
 // hjkl navigation

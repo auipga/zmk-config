@@ -2,6 +2,8 @@
 #include <behaviors/num_word.dtsi> // Requires zmk-auto-layer module.
 #include <behaviors/unicode.dtsi> // Requires zmk-unicode module.
 #include <zmk-helpers/helper.h> // Requires zmk-helpers module.
+#include <zmk-helpers/unicode-chars/german.dtsi>
+#include <zmk-helpers/unicode-chars/currency.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #ifdef CONFIG_WIRELESS
   #include <dt-bindings/zmk/bt.h>
