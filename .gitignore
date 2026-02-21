@@ -6,3 +6,4 @@ firmware
 zephyr
 zmk
 draw/base.yaml
+/config/_private.dtsi
