@@ -179,45 +179,53 @@ ZMK_BASE_LAYER(Mouse,
 // COMBO( 8,  9, RBKT )
 // COMBO( 7,  8, LBKT )
 
+// #define INSERT          &kp I
+// #define APPEND          &kp A
+// #define HOME_LINE       &kp LS(H)
+// #define MIDDLE_LINE     &kp LS(M)
+// #define LAST_LINE       &kp LS(L)
+//
 // Vim navigation
-#define LINE_START      &kp N0
-#define FIRST_CHAR      &kp CARET
-#define PREV_WORD       &kp B
-// #define PREV_WORD_E      ge (macro)
-#define INSERT          &kp I
-#define APPEND          &kp A
-#define NEXT_WORD       &kp W
-#define NEXT_WORD_E     &kp E
-// #define LAST_CHAR        g_ (macro)
-#define LINE_END        &kp DOLLAR
-
-#define JUMP_FORW       &kp F
-#define JUMP_FORW_T     &kp T
+// left hand
+#define TAB_PREV        &m_gt2
+#define TAB_NEXT        &m_gt1
+ZMK_MACRO(m_gt2,  bindings = <&kp G  &kp LS(T)>;  wait-ms = <0>; tap-ms = <5>;)
+ZMK_MACRO(m_gt1,  bindings = <&kp G  &kp    T >;  wait-ms = <0>; tap-ms = <5>;)
+#define CMD             &kp COLON
+#define JUMP_FORW       &kp    F
 #define JUMP_BACK       &kp LS(F)
+#define JUMP_FORW_T     &kp    T
 #define JUMP_BACK_T     &kp LS(T)
 
-#define I_ONE_SHOT      &kp LS(O)
-#define HOME_LINE       &kp H
-#define MIDDLE_LINE     &kp M
-#define LAST_LINE       &kp L
-#define LINE_UP         &kp PLUS
-#define LINE_DN         &kp MINUS
+// right hand
+#define LINE_START      &kp N0
+#define LINE_END        &kp DOLLAR
+#define FIRST_CHAR      &kp CARET
+#define LAST_CHAR       &m_g_
+#define PREV_WORD       &kp B
+#define NEXT_WORD       &kp W
+#define PREV_WORD_E     &m_ge
+#define NEXT_WORD_E     &kp E
+// multiple chars
+ZMK_MACRO(m_g_,  bindings = <&kp G  &kp UNDER>;  wait-ms = <0>; tap-ms = <5>;)
+ZMK_MACRO(m_ge,  bindings = <&kp G  &kp E>;      wait-ms = <0>; tap-ms = <5>;)
+#define LINE_UP         &kp MINUS
+#define LINE_DN         &kp PLUS
+#define PREV_FIND       &mt HASH LS(N)  // Tap: N  | Long-tap: #
+#define NEXT_FIND       &mt STAR N      // Tap: n  | Long-tap: *
+#define SEARCH          &kp SLASH
+#define REPEAT          &kp DOT
+#define I_ONE_SHOT      &kp LC(O)
 
-ZMK_MACRO(last_char  , bindings = <&kp G &kp UNDERSCORE>; wait-ms = <0>; tap-ms = <5>;)
-ZMK_MACRO(prev_word_e, bindings = <&kp G &kp E>;          wait-ms = <0>; tap-ms = <5>;)
 ZMK_BASE_LAYER(Vim_Navigation,
-// TODO:
-// &mo VIM_WS
-// &mo VIM_RS
-// &mo VIM_PS
-//╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-    ___           ___           ___           JUMP_BACK_T   JUMP_BACK   ,   JUMP_FORW     JUMP_FORW_T   ___           ___           ___         ,
-//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-    LINE_START    FIRST_CHAR    PREV_WORD     &prev_word_e  INSERT      ,   APPEND        NEXT_WORD     NEXT_WORD_E   &last_char    LINE_END    ,
-//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-    ___           ___           ___           ___           ___         ,   ___           ___           ___           ___           ___         ,
-//╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯
-                                ___           ___           ___         ,   ___           ___           ___
+//╭─────────────┬─ gT ────────┬── gt ───────┬─────────────┬─────────────╮ ╭─ 0 ─────────┬─ ^ ─────────┬─ - ─────────┬─ g_ ────────┬─ $ ─────────╮
+    ___           TAB_PREV      TAB_NEXT      ___           ___         ,   LINE_START    FIRST_CHAR    LINE_UP       LAST_CHAR     LINE_END    ,
+//├─ : ─────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─ b ─────────┼─ ge ────────┼─ + ─────────┼─ w ─────────┼─ e ─────────┤
+    CMD           &mo VIM_RS    &mo VIM_WS    &mo VIM_PS    ___         ,   PREV_WORD     PREV_WORD_E   LINE_DN       NEXT_WORD     NEXT_WORD_E ,
+//├─ T ─────────┼─ F ─────────┼─ f ─────────┼─ t ─────────┼─────────────┤ ├─────────────┼─ N # ───────┼─ / ─────────┼─ n * ───────┼─────────────┤
+    JUMP_BACK_T   JUMP_BACK     JUMP_FORW     JUMP_FORW_T   ___         ,   ___           PREV_FIND     SEARCH        NEXT_FIND     ___         ,
+//╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─ . ─────────┼─────────────┼─  ────────┼─────────────┴─────────────╯
+                                ___           ___           ___         ,   REPEAT                      I_ONE_SHOT
 //                            ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯
 )
 
