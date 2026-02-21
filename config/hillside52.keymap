@@ -37,7 +37,7 @@
 // &out OUT_USB  &bt BT_CLR    &out OUT_BLE &bt BT_SEL 2
 //
 #define ZMK_BASE_LAYER(name, LT, RT, LM, RM, LB, RB, LH, RH)                             \
-    ZMK_LAYER_3(                                                                           \
+    ZMK_LAYER_3(                                                                         \
         name,                                                                            \
         &kp ESC                  LT                RT                    &kp SLASH  \
         &none                    LM                RM                    &kp MINUS  \
@@ -147,6 +147,7 @@ ZMK_BASE_LAYER(Num,
 //                            ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯
 )
 
+// TODO: remove
 ZMK_BASE_LAYER(Sys,
 //╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
                                _BT_SEL_KEYS_                            ,   ___           ___           ___           ___           ___         ,
