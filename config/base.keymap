@@ -15,6 +15,8 @@
 #endif
 
 /*
+./config/hillside52.keymap:39
+
 #define DEF 0
 #define NAV 1
 #define FN 2
