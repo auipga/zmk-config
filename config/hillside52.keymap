@@ -82,8 +82,7 @@ ZMK_BASE_LAYER(Base,
 //├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
     &kp SEMI      &kp Q         &kp J         &kp K         &kp X       ,   &kp B         &kp M         &kp W         &kp V         &kp Z       ,
 //╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯
-                              &lt VIM_NAV ESC &lt_spc NAV 0 SMART_NUM   ,   &lt FN RET    MAGIC_SHIFT   &lt FN DEL
-                       // TODO: ___           &lt_spc NAV 0 &lt NUM RET ,   &lt XX RET    BSPC_SHIFT    &lt FN DEL
+                              &lt VIM_NAV ESC &lt_spc NAV 0 &lt NUM RET ,   &lt FN RET    &lt SYM BSPC  &lt FN DEL
 //                            ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯
 )
 
