@@ -47,7 +47,7 @@
     )
 
 #include "zmk-helpers/key-labels/hillside52.h"
-#include "base.keymap"
+#include "base-auipga.keymap"
 #include "_private.dtsi"
 
 &uc {
