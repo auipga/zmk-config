@@ -462,4 +462,4 @@ ZMK_BASE_LAYER(Vim_Preview_Scroll,
 //                            ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯
 )
 
-/* vim: set ft=c tw=146: */
+/* vim: set nowrap ft=c foldmethod=marker foldmarker=(,) tw=146: */
