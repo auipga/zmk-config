@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+    ],
+    "deny": [
+      "Read(config/_private.dtsi)"
+    ]
+  }
+}
