@@ -31,8 +31,11 @@ just flash <name> [side] # Copy UF2 firmware to /run/media/<name>
 ## Repository Structure
 
 - `config/` — All user-facing files: keymaps, combos, behaviors, board configs
-- `config/base.keymap` — Primary 34-key layout shared across all boards; board-specific files (`*zen.keymap`, `*glove80.keymap`, etc.) include it and add overrides
-- `config/combos.dtsi` — All combo definitions (symbols, shortcuts, layer toggles)
+- `config/my-hillside52.keymap` — Older revision Hillside52 config (use this to migrate)
+- `config/base-auipga.keymap` — Active primary layout (included by hillside52)
+- `config/base.keymap` — Upstream urob layout (included by planck, glove80, corneish_zen)
+- `config/combos-auipga.dtsi` — Active combo definitions for the auipga layout
+- `config/combos.dtsi` — Upstream urob combo definitions (copy, kept in sync separately)
 - `config/leader.dtsi` — Leader key sequences (German umlauts, Greek letters, system commands)
 - `config/mouse.dtsi` — Mouse layer behavior
 - `config/west.yml` — West manifest pinning ZMK v0.3 and custom modules
@@ -59,8 +62,8 @@ Layers (defined in board keymap files):
 
 ## Key Files for Editing Keymaps
 
-- To change key assignments on the base layer → `config/base.keymap`
-- To change combos → `config/combos.dtsi` and `config/combos.h`
+- To change key assignments → `config/base-auipga.keymap`
+- To change combos → `config/combos-auipga.dtsi`
 - To change leader sequences → `config/leader.dtsi`
 - To add board-specific overrides → the relevant `config/*<board>.keymap`
 - To add a new board to the build matrix → `build.yaml`
@@ -72,4 +75,4 @@ Layers (defined in board keymap files):
 - `.conf` files use Kconfig syntax (key=value pairs)
 - `.h` files use C preprocessor macros; included via `#include` in `.keymap`/`.dtsi`
 - Key codes use ZMK's `&kp`, `&mt`, `&lt`, `&hml`, `&hmr`, `&mo`, etc.
-- The `MAKE_HRM` macro generates a hold-tap behavior node; parameters are documented in `base.keymap`
+- The `MAKE_HRM` macro generates a hold-tap behavior node; parameters are documented in `base[-auipga].keymap`
