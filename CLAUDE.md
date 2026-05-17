@@ -47,10 +47,16 @@ just flash <name> [side] # Copy UF2 firmware to /run/media/<name>
 
 Layers (defined in board keymap files):
 - `DEF 0` — Base (Dvorak-variant with homerow mods)
-- `NAV 1` — Navigation + mouse scroll
-- `FN 2` — Function keys
-- `NUM 3` — Number pad (with numword smart-layer)
-- `MOUSE 5` — Mouse control (auto-toggled)
+- `NAV 1` — Navigation: arrows, clipboard, smart swappers
+- `FN 2` — Function keys, Bluetooth selectors, system reset/bootloader
+- `NUM 3` — Number pad right hand, modifiers on left
+- `SYM 4` — Dedicated symbols layer
+- `MOUSE 5` — Mouse movement/scroll/buttons (auto-toggled via `smart_mouse` tri-state)
+- `VIM_NAV 6` — Vim motion layer: line nav, word nav, jump, search
+- `VIM_HJKL 7` — Vim hjkl cursor keys with left-hand modifiers
+- `VIM_WS 8` — Vim window split navigation (Ctrl-W + hjkl)
+- `VIM_RS 9` — Vim results scrolling (PgUp/PgDn, Alt-F/K)
+- `VIM_PS 10` — Vim preview scrolling (Ctrl-U/D/F/K)
 
 **Homerow mods** use the `MAKE_HRM` macro in `base.keymap`: balanced flavor, 280ms tapping-term, `require-prior-idle-ms`, and positional hold-tap (left-hand HRMs only trigger on right-hand keys and vice versa). This is the "timeless HRM" approach — see `readme.md` for the full rationale.
 
