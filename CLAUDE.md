@@ -45,7 +45,8 @@ just flash <name> [side] # Copy UF2 firmware to /run/media/<name>
 
 ## Keymap Architecture
 
-Layers (defined in board keymap files):
+### Layers (defined in `base-auipga.keymap`)
+
 - `DEF 0` — Base (Dvorak-variant with homerow mods)
 - `NAV 1` — Navigation: arrows, clipboard, smart swappers
 - `FN 2` — Function keys, Bluetooth selectors, system reset/bootloader
@@ -58,9 +59,17 @@ Layers (defined in board keymap files):
 - `VIM_RS 9` — Vim results scrolling (PgUp/PgDn, Alt-F/K)
 - `VIM_PS 10` — Vim preview scrolling (Ctrl-U/D/F/K)
 
-**Homerow mods** use the `MAKE_HRM` macro in `base.keymap`: balanced flavor, 280ms tapping-term, `require-prior-idle-ms`, and positional hold-tap (left-hand HRMs only trigger on right-hand keys and vice versa). This is the "timeless HRM" approach — see `readme.md` for the full rationale.
+### Board-specific wrapper pattern
 
-**Symbol layer** is implemented entirely via vertical combos (key pairs) rather than a dedicated layer, defined in `combos.dtsi`.
+Each board keymap (e.g. `hillside52.keymap`) optionally defines a `ZMK_BASE_LAYER` macro before including the shared base keymap. This macro wraps each layer definition to inject board-specific outer keys (e.g. ESC, encoder bindings, media keys).
+
+### Key behaviors
+
+**Homerow mods** use `MAKE_HRM` in `base-auipga.keymap`: balanced flavor, 280ms tapping-term, `require-prior-idle-ms = 150`, positional hold-tap with `hold-trigger-on-release`. Left HRMs (`hml`) trigger only on right-hand + thumb keys and vice versa. See `readme.md` for the full "timeless HRM" rationale.
+
+**HRM combo hack**: combos overlapping HRM positions are declared with 8-argument `ZMK_COMBO` which generates a tap-only hold-tap instance per combo, working around ZMK issue #544.
+
+**Symbols** are implemented via vertical combos (key pairs) defined in `combos.dtsi` and the `SYM` layer.
 
 **Magic thumb** (right inner thumb): tap-after-alpha = repeat, tap-after-other = sticky-shift, double-tap = caps-word, hold = shift. Implemented via `zmk-adaptive-key` module.
 
