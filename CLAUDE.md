@@ -18,12 +18,12 @@ just init        # Initialize west workspace (downloads ZMK, zephyr, modules)
 ## Common Commands
 
 ```bash
-just build all           # Build all targets from build.yaml
-just build <target>      # Build a specific board (e.g., planck, zen, glove80)
+just init                # Prepare build environment
+just build <target>      # Build a specific board (e.g. hillside52)
+just build <target> -p   # Pristine (clean) build for a target
 just list                # List all available build targets
 just draw                # Generate SVG keymap visualization (draw/base.svg)
-just test <testpath>     # Run tests for a specific test directory
-just clean               # Clear build cache
+just clean               # Clear build cache and firmware output
 just update              # Update ZMK and modules per west.yml
 just flash <name> [side] # Copy UF2 firmware to /run/media/<name>
 ```
